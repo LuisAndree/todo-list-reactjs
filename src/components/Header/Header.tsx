@@ -4,7 +4,7 @@ import styles from '../Header/styles.module.scss';
 import { useState } from 'react';
 
 export const Header: React.FC = () => {
-    const [variavel, setVariavel] = useState(0);   
+    const [estado, funcaoParaAlterarOEstado] = useState(0);   
     return (
         <header className={styles.header}>
             <div className={styles.container}>
@@ -15,17 +15,17 @@ export const Header: React.FC = () => {
                 </div>
 
                 <div>
-                    <StatsCard title="Total de Tarefas" value={variavel}></StatsCard>
-                    <StatsCard title="Tarefas Pendentes" value={variavel}></StatsCard>
-                    <StatsCard title="Tarefas Concluidas" value={variavel}></StatsCard>
+                    <StatsCard title="Total de Tarefas" value={estado}></StatsCard>
+                    <StatsCard title="Tarefas Pendentes" value={estado}></StatsCard>
+                    <StatsCard title="Tarefas Concluidas" value={estado}></StatsCard>
                 </div>
             </div>
             <div>
-      <p>Você clicou {variavel} vezes</p>
-      <button onClick={() => setVariavel(variavel + 1)}>
+      <p>Você clicou {estado} vezes</p>
+      <button onClick={() => funcaoParaAlterarOEstado(estado + 1)}>
         Clique aqui +
       </button>
-      <button onClick={() => setVariavel(variavel - 1)}>
+      <button onClick={() => funcaoParaAlterarOEstado (estado - 1)}>
         Clique aqui -
       </button>
     </div>
