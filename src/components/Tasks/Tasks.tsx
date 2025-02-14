@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from "./styles.module.scss"
-import { FormEvent, useState } from 'react';
+import { FormEvent, useState, useEffect } from 'react';
 
 interface Task {
     title: string;
@@ -9,7 +9,7 @@ interface Task {
 }
 
 export const Task: React.FC = () => {
-    const [taskTitle, setTaskTitle] = useState("Tarefa");
+    const [taskTitle, setTaskTitle] = useState("");
     const [tasks, setTasks] = useState([] as Task[])
 
     function handleSubmitAddTask(event: FormEvent) {
@@ -19,12 +19,24 @@ export const Task: React.FC = () => {
             alert("Não é possivel adicionar uma tarefa com menos de 3 letras.")
         }
 
-        setTasks([...tasks,
+        const newTasks = [...tasks,
         { id: new Date().getTime(), title: taskTitle, done: false },
-        ])
+        ];
+
+        setTasks(newTasks)
+        localStorage.setItem('tasks', JSON.stringify(newTasks)) // transforma em um array de strings
 
         setTaskTitle("");
     }
+
+    useEffect(() => {
+        const tasksOnLocalStorage = localStorage.getItem('tasks');
+
+        if(tasksOnLocalStorage) {
+            setTasks(JSON.parse(tasksOnLocalStorage)); // vai transformar o array q ta em string para um array de fato do js
+        }
+    }, [])
+
     return (
         <section className={styles.container}>
             <form onSubmit={handleSubmitAddTask} >
