@@ -4,31 +4,21 @@ import styles from '../Header/styles.module.scss';
 import { useState } from 'react';
 
 export const Header: React.FC = () => {
-    const [estado, funcaoParaAlterarOEstado] = useState(0);   
     return (
         <header className={styles.header}>
             <div className={styles.container}>
                 <div>
                     <h1>MyTodo</h1>
 
-                    <span>Bem-vindo André 5:15</span>
+                    <span>Bem-vindo André</span>
                 </div>
 
                 <div>
-                    <StatsCard title="Total de Tarefas" value={estado}></StatsCard>
-                    <StatsCard title="Tarefas Pendentes" value={estado}></StatsCard>
-                    <StatsCard title="Tarefas Concluidas" value={estado}></StatsCard>
+                    <StatsCard title="Total de Tarefas" value='1'></StatsCard>
+                    <StatsCard title="Tarefas Pendentes" value='3'></StatsCard>
+                    <StatsCard title="Tarefas Concluidas" value='7'></StatsCard>
                 </div>
             </div>
-            <div>
-      <p>Você clicou {estado} vezes</p>
-      <button onClick={() => funcaoParaAlterarOEstado(estado + 1)}>
-        Clique aqui +
-      </button>
-      <button onClick={() => funcaoParaAlterarOEstado (estado - 1)}>
-        Clique aqui -
-      </button>
-    </div>
         </header>
     );
 };
