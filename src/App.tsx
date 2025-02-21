@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from 'react';
-import { Header } from './components/Header/Header.tsx';
-import { Task } from './components/Tasks/Tasks.tsx';
-import { Counter } from './components/Counter/Counter.tsx'
+import { Header } from './components/Header/Header';
+import { Task } from './components/Tasks/Tasks';
 
 import "./styles/global.css"
+import { Refs } from './components/Concepts/Refs';
+import { Memoization } from './components/Concepts/Memoization';
 
 
 function App() {
@@ -27,6 +27,11 @@ function App() {
     <>
       <Header></Header>
       <Task></Task>
+      <Refs></Refs>
+      <Memoization financialData={{
+        incomes: [50, 20, 30],
+        outcomes: [5, 8, 4]
+      }}></Memoization>
 
       {/* <button onClick={()=> setToggle(!toggle) }>Toggle</button> */}
     </>
