@@ -1,5 +1,5 @@
 import { Header } from './components/Header/Header';
-import { Task } from './components/Tasks/Tasks';
+import { Tasks } from './components/Tasks/Tasks';
 
 import "./styles/global.css"
 import { Refs } from './components/Concepts/Refs';
@@ -26,12 +26,12 @@ function App() {
   return (
     <>
       <Header></Header>
-      <Task></Task>
-      <Refs></Refs>
+      <Tasks></Tasks>
+      {/* <Refs></Refs>
       <Memoization financialData={{
         incomes: [50, 20, 30],
         outcomes: [5, 8, 4]
-      }}></Memoization>
+      }}></Memoization> */}
 
       {/* <button onClick={()=> setToggle(!toggle) }>Toggle</button> */}
     </>
