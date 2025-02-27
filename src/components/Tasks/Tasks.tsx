@@ -1,39 +1,49 @@
 import styles from "./styles.module.scss"
 import { FormEvent, useState, useEffect } from 'react';
+import axios from "axios";
+import { getTarefas, postTarefa, Task } from "../../tarefasService";
 
-interface Task {
-    title: string;
-    done: boolean;
-    id: number;
-}
+// interface Task {
+//     title: string;
+//     done: boolean;
+//     id: number;
+// }
 
-export const Task: React.FC = () => {
+export const Tasks: React.FC = () => {
     const [taskTitle, setTaskTitle] = useState("");
-    const [tasks, setTasks] = useState([] as Task[])
+    const [tasks, setTasks] = useState<Task[]>([]);
 
     function handleSubmitAddTask(event: FormEvent) {
         event.preventDefault();
+        console.log('passou')
+        const adicionarTarefa = async (taskTitle: string) => {
+            try {
+                const novaTarefa = await postTarefa(taskTitle, false);
 
-        if (taskTitle.length < 3) {
-            alert("Não é possivel adicionar uma tarefa com menos de 3 letras.")
-        }
+                const newTasks = [...tasks, novaTarefa];
 
-        const newTasks = [...tasks,
-        { id: new Date().getTime(), title: taskTitle, done: false },
-        ];
+                setTasks(newTasks);
+            } catch (error) {
+                console.error('Erro ao adicionar tarefa:', error);
+            }
+        };
 
-        setTasks(newTasks)
-        localStorage.setItem('tasks', JSON.stringify(newTasks)) // transforma em um array de strings
-
-        setTaskTitle("");
+        adicionarTarefa(taskTitle);
     }
 
     useEffect(() => {
-        const tasksOnLocalStorage = localStorage.getItem('tasks');
-
-        if(tasksOnLocalStorage) {
-            setTasks(JSON.parse(tasksOnLocalStorage)); // vai transformar o array q ta em string para um array de fato do js
-        }
+        getTarefas()
+            .then(data => setTasks(data.map(d => {
+                console.log(d)
+                return {
+                    title: d.title,
+                    id: d.id,
+                    done: false
+                }
+            })))
+            .catch((e) => {
+                console.log('deu ruim', e)
+            })
     }, [])
 
     return (
@@ -46,6 +56,7 @@ export const Task: React.FC = () => {
 
                 <button type="submit">Adicionar Tarefa</button>
             </form>
+
 
             <ul>
                 {tasks.map((task) => {
